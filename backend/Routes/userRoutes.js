@@ -1,21 +1,40 @@
+import { Router } from "express";
+import { StudentSchema } from "../schema/StudentSchema.js";
 
-import { Router } from 'express';';js';
+const Route = Router();
 
-const Route = Router()
+Route.post("/search", async (req, res) => {
+    const { Madrasa, Class, Year } = req.body;
 
-
-Route.post('/createUser', async (req, res) => {
-    // const userID = req.body
-  
-
+    const Result = await StudentSchema.find(
+        { $and: [{ Madrasa: Madrasa }, { Class: Class }] },
+        { _id: 0, Madrasa: 0, createdAt: 0, updatedAt: 0, __v: 0 ,isPass:0 }
+    );
+    return res.send(Result);
 });
-Route.post('/addFeed', async (req, res) => {
-  
+Route.get("/getMadrasa", async (req, res) => {
+    const Data = await StudentSchema.aggregate([
+        {
+            $group: {
+                _id: "$Madrasa",
+            },
+        },
+    ]).then((data) => {
+        return [...data.map((d) => d?._id)];
+    });
+    return res.send(Data);
+});
+Route.get("/getClass", async (req, res) => {
+    const Data = await StudentSchema.aggregate([
+        {
+            $group: {
+                _id: "$Class",
+            },
+        },
+    ]).then((data) => {
+        return [...data.map((d) => d?._id)];
+    });
+    return res.send(Data);
+});
 
-});
-Route.post('/addComment', async (req, res) => {
-});
-Route.post('/replayComment', async (req, res) => {
-});
-
-export default Route
+export default Route;
