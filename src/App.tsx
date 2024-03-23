@@ -1,8 +1,10 @@
+import { lazy } from "react";
 import { HashRouter, Route, Routes } from "react-router-dom";
-import "./App.css";
-import ResultPublic from "./components/ResultPublic";
-import Admin from "./components/Admin";
 
+const ResultPublic = lazy(() => import("./components/ResultPublic"));
+const Admin = lazy(() => import("./components/Admin"));
+
+import "./App.css";
 
 function App() {
     return (

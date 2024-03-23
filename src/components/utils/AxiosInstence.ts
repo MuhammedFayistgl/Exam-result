@@ -1,7 +1,8 @@
 import axios from "axios";
 
 export const AxiosInstance = axios.create({
-    baseURL: "http://localhost:8000/",
+    baseURL: "https://exam-result.onrender.com",
+    // baseURL: "http://localhost:8000/",
     withCredentials: true,
     headers: {
         "Accept": "application/json",
