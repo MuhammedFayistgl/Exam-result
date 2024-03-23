@@ -2,7 +2,6 @@ import { LoadingButton } from "@mui/lab";
 import {
     Autocomplete,
     Box,
-    Button,
     Container,
     DialogActions,
     DialogContent,
@@ -12,7 +11,7 @@ import {
     Tooltip,
 } from "@mui/material";
 import { MaterialReactTable, MRT_EditActionButtons, useMaterialReactTable } from "material-react-table";
-import React, { useEffect, useState } from "react";
+import { BaseSyntheticEvent, useEffect, useState } from "react";
 import { AxiosInstance } from "./utils/AxiosInstence";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -21,7 +20,6 @@ import { toast } from "react-toastify";
 
 const Admin = () => {
     const [data, setData] = useState([]);
-    const [Error, setError] = useState(false);
     const [loading, setLoading] = useState(false);
     const [BTNloading, setBTNLoading] = useState(false);
 
@@ -162,15 +160,14 @@ const Admin = () => {
                 <div className="bg-gray-100  p-3 ">
                     <div className="flex flex-rew  gap-4 flex-wrap mb-4">
                         <TextField
-                            error={Error}
                             helperText={Error && "Pleas fill all Field"}
                             size="small"
                             label="Student Name"
                             variant="filled"
-                            onChange={(e) => setName(e.target.value)}
+                            onChange={(e:BaseSyntheticEvent) => setName(e.target.value)}
                         />
                         <Autocomplete
-                            onSelect={(e) => setMadrasa(e.target.value)}
+                            onSelect={(e:BaseSyntheticEvent) => setMadrasa(e.target.value)}
                             size="small"
                             disablePortal
                             options={MADRASA}
@@ -180,11 +177,11 @@ const Admin = () => {
                         />
                         <Autocomplete
                             size="small"
-                            onSelect={(e) => setClass(e.target.value)}
+                            onSelect={(e:BaseSyntheticEvent) => setClass(e.target.value)}
                             disablePortal
                             options={AllClass}
                             sx={{ width: 100 }}
-                            renderInput={(params) => <TextField onClose={() => setClass(null)} {...params} label="Class" />}
+                            renderInput={(params) => <TextField  {...params} label="Class" />}
                         />
                     </div>
                     <span>

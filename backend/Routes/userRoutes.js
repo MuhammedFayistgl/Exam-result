@@ -4,7 +4,9 @@ import { StudentSchema } from "../schema/StudentSchema.js";
 const Route = Router();
 
 Route.post("/search", async (req, res) => {
-    const { Madrasa, Class, Year } = req.body;
+    const { Madrasa, Class,
+        //  Year
+         } = req.body;
 
     const Result = await StudentSchema.find(
         { $and: [{ Madrasa: Madrasa }, { Class: Class }] },

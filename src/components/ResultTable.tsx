@@ -23,18 +23,17 @@ const ResultTable = () => {
                 enableHiding: true, //disable a feature for this column
             },
             {
-                accessorFn: (originalRow) => parseInt(originalRow.Class), //alternate way
-                id: "Class", //id required if you use accessorFn instead of accessorKey
+                accessorKey: "Class", //simple recommended way to define a column
                 header: "Class",
-                Header: <i style={{ color: "black" }}>Class</i>, //optional custom markup
-                Cell: ({ cell }) => <i>{cell.getValue<number>().toLocaleString()}</i>, //optional custom cell render
+                muiTableHeadCellProps: { style: { color: "black" } }, //custom props
+                enableHiding: true, //disable a feature for this column
             },
             {
                 accessorKey: "Result", //simple recommended way to define a column
                 header: "Result",
                 muiTableHeadCellProps: { style: { color: "green" } }, //custom props
                 enableHiding: true, //disable a feature for this column
-                Cell: ({ cell }) => <i>{"Pass"}</i>, 
+                Cell: () => <i>{"Pass"}</i>, 
             },
         ],
         []
@@ -79,7 +78,7 @@ const ResultTable = () => {
         ),
     });
 
-    const handleExportRows = (rows: any[]) => {
+    const handleExportRows = (rows) => {
         const doc = new jsPDF();
         const tableData = rows.map((row) => Object.values(row.original));
         const tableHeaders = columns.map((c) => c.header);

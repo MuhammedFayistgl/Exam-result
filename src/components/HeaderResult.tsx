@@ -2,7 +2,7 @@ import { Container } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import LoadingButton from "@mui/lab/LoadingButton";
-import { useEffect, useState } from "react";
+import { BaseSyntheticEvent, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { AxiosInstance } from "./utils/AxiosInstence";
 import { useDispatch } from "react-redux";
@@ -11,7 +11,7 @@ const HeaderResult = () => {
     const [Madrasa, setMadrasa] = useState(null);
     const [Class, setClass] = useState(null);
     const [Year, setYear] = useState(null);
-
+    console.log("Madrasa", Madrasa);
     // fetch uploaded data
     const [MadrasaData, setMadrasaData] = useState(null);
     const [ClassData, setClassData] = useState(null);
@@ -32,10 +32,14 @@ const HeaderResult = () => {
         }
     };
     useEffect(() => {
-        AxiosInstance.get("user/getMadrasa").then((data) => setMadrasaData(data.data));
-        AxiosInstance.get("user/getClass").then((data) => setClassData(data.data));
+        if (MadrasaData == null) {
+            AxiosInstance.get("user/getMadrasa").then((data) => setMadrasaData(data.data));
+        }
+        if (ClassData == null) {
+            AxiosInstance.get("user/getClass").then((data) => setClassData(data.data));
+        }
         return () => {};
-    }, []);
+    }, [MadrasaData,ClassData]);
 
     return (
         <Container>
@@ -43,10 +47,11 @@ const HeaderResult = () => {
                 <Autocomplete
                     disablePortal
                     id="combo-box-demo"
+                    disabled={!MadrasaData}
                     options={MadrasaData}
                     // value={Madrasa}
                     sx={{ width: 200 }}
-                    onSelect={(e) => setMadrasa(e.target.value)}
+                    onSelect={(e: BaseSyntheticEvent) => setMadrasa(e.target.value)}
                     renderInput={(params) => <TextField {...params} label="Select Your Madrasa" />}
                 />
 
@@ -54,8 +59,9 @@ const HeaderResult = () => {
                     disablePortal
                     id="combo-box-demo"
                     options={YearData}
+                    disabled={!YearData}
                     sx={{ width: 200 }}
-                    onSelect={(e) => setYear(e.target.value)}
+                    onSelect={(e: BaseSyntheticEvent) => setYear(e.target.value)}
                     renderInput={(params) => <TextField {...params} label="Select Year" />}
                 />
                 <Autocomplete
@@ -63,8 +69,9 @@ const HeaderResult = () => {
                     // value={Class}
                     id="combo-box-demo"
                     options={ClassData}
+                    disabled={!ClassData}
                     sx={{ width: 150 }}
-                    onSelect={(e) => setClass(e.target.value)}
+                    onSelect={(e: BaseSyntheticEvent) => setClass(e.target.value)}
                     renderInput={(params) => <TextField {...params} label="Select Class" />}
                 />
             </div>
@@ -78,33 +85,5 @@ const HeaderResult = () => {
 };
 
 export default HeaderResult;
-
-const MADRASA = [
-    " 1081 NOORUL ISLAM THAZHE THIRUVAMBADY ",
-
-    " 1391 HAYATHUL ISLAM KOODARANJI ",
-
-    " 1488 MUNAVVIRUL ISLAM THIRUVAMBADI TOWN ",
-
-    "2494 NUSRATHUL ISLAM ANAKKAMPOYIL ",
-
-    "2831 MASLAKUL ISLAM PUNNAKKAL ",
-
-    "2874 MUNAVVIRUL ISLAM  KULIRAMUTTI",
-
-    "3400 MUNAVVIRUL ISLAM   KOODARANJI",
-
-    " 4200 MIFTHAHUL ULOOM PAMBIZHANJA PARA ",
-
-    " 4813 MADRASSATHUL MUHAMMADIYYA MURAMBATHI ",
-
-    "   6625 IHYAUL ULOOM  MARANCHATTI",
-
-    " 7806 MUNAVVIRUL ISLAM PERUMBOOLA",
-
-    " 10608 NOORUL HUDA SECONDARY MADRASA",
-];
-
-const AllClass = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"];
 
 const YearData = ["2024"];
