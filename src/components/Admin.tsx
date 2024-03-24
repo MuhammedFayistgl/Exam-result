@@ -10,12 +10,13 @@ import {
     TextField,
     Tooltip,
 } from "@mui/material";
-import { MaterialReactTable, MRT_EditActionButtons, useMaterialReactTable } from "material-react-table";
+import { MaterialReactTable, MRT_ColumnDef, MRT_EditActionButtons, useMaterialReactTable } from "material-react-table";
 import { BaseSyntheticEvent, useEffect, useState } from "react";
 import { AxiosInstance } from "./utils/AxiosInstence";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { toast } from "react-toastify";
+import { AdminDataType } from "../Types/StudentType";
 
 
 const Admin = () => {
@@ -60,7 +61,7 @@ const Admin = () => {
     }, []);
 
     //simple column definitions pointing to flat data
-    const columns = [
+    const columns:MRT_ColumnDef<AdminDataType>[] = [
         {
             accessorKey: "Name", //simple recommended way to define a column
             header: "Student Name",
@@ -74,6 +75,16 @@ const Admin = () => {
             enableHiding: true, //disable a feature for this column
             size: 30,
             editSelectOptions: AllClass,
+            editVariant: 'select',
+        },
+        {
+            accessorKey: "Madrasa", //simple recommended way to define a column
+            header: "Madrasa",
+            editVariant: 'select',
+            editSelectOptions: MADRASA,
+            muiTableHeadCellProps: { style: { color: "black" } }, //custom props
+            enableHiding: true, //disable a feature for this column
+            size: 30,
         },
 
         {
@@ -103,8 +114,12 @@ const Admin = () => {
         AxiosInstance.post("admin/delete-user", { _id: _id }).then(() => fetchData());
     };
     const handleEditingUser = (row) => {
-        AxiosInstance.post("admin/edit-user", row.values).then(() => fetchData());
+        console.log(row)
+        AxiosInstance.post("admin/edit-user", row.values).then(() => {fetchData(),row.exitEditingMode(null)});
     };
+
+
+    
 
     const table = useMaterialReactTable({
         columns,
@@ -115,6 +130,7 @@ const Admin = () => {
         enablePagination: true,
         enableSorting: true,
         enableRowSelection: true,
+        initialState: { density: 'compact' },
         renderRowActions: ({ row, table }) => (
             <Box sx={{ display: "flex", gap: "1rem" }}>
                 <Tooltip title="Edit">
@@ -142,6 +158,7 @@ const Admin = () => {
         ),
 
         onEditingRowSave: handleEditingUser,
+        // onEditingRowCancel:setEditingCancel,
         onCreatingRowSave: handleCreateUser,
         state: {
             isLoading: loading,

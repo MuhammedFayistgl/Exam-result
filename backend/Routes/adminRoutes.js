@@ -39,6 +39,7 @@ AdminRoute.post("/delete-user", async (req, res) => {
 
 AdminRoute.post("/edit-user", async (req, res) => {
     const { _id, Name, Class, isPass, Madrasa } = req.body;
+    // console.log(req.body);
     let Student = await StudentSchema.findOne({ _id: _id });
     if (Student) {
         Student?.Name !== Name && (Student.Name = Name);
@@ -50,7 +51,6 @@ AdminRoute.post("/edit-user", async (req, res) => {
         return res.send({ message: "Student updated successfully", Student });
     }
 
-    console.log(req.body);
 });
 
 export default AdminRoute;

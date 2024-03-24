@@ -5,16 +5,19 @@ import LoadingButton from "@mui/lab/LoadingButton";
 import { BaseSyntheticEvent, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { AxiosInstance } from "./utils/AxiosInstence";
-import { useDispatch } from "react-redux";
-import { steResult } from "../Redux/ResultSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { setLoading, steResult } from "../Redux/ResultSlice";
+import { RootState } from "../Types/ReduxType";
 const HeaderResult = () => {
     const [Madrasa, setMadrasa] = useState(null);
     const [Class, setClass] = useState(null);
     const [Year, setYear] = useState(null);
-    console.log("Madrasa", Madrasa);
+
     // fetch uploaded data
     const [MadrasaData, setMadrasaData] = useState(null);
     const [ClassData, setClassData] = useState(null);
+
+    const { loading } = useSelector((state: RootState) => state.Result);
 
     const Dispatch = useDispatch();
 
@@ -26,8 +29,10 @@ const HeaderResult = () => {
         } else if (Class == null) {
             toast(" pleas select Your Class", { type: "error" });
         } else {
+            Dispatch(setLoading(true));
             AxiosInstance.post("user/search", { Madrasa: Madrasa, Class: Class, Year: Year }).then((data) => {
                 Dispatch(steResult(data.data));
+                Dispatch(setLoading(false));
             });
         }
     };
@@ -39,7 +44,7 @@ const HeaderResult = () => {
             AxiosInstance.get("user/getClass").then((data) => setClassData(data.data));
         }
         return () => {};
-    }, [MadrasaData,ClassData]);
+    }, [MadrasaData, ClassData]);
 
     return (
         <Container>
@@ -76,7 +81,7 @@ const HeaderResult = () => {
                 />
             </div>
             <div className="py-4">
-                <LoadingButton onClick={submitHandler} size="medium" loading={false} loadingIndicator="Loading…" variant="contained">
+                <LoadingButton onClick={submitHandler} size="medium" loading={loading} loadingIndicator="Loading…" variant="contained">
                     Submit
                 </LoadingButton>
             </div>

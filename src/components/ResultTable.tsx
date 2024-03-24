@@ -21,12 +21,14 @@ const ResultTable = () => {
                 header: "Name",
                 muiTableHeadCellProps: { style: { color: "black" } }, //custom props
                 enableHiding: true, //disable a feature for this column
+                // size:80
             },
             {
                 accessorKey: "Class", //simple recommended way to define a column
                 header: "Class",
                 muiTableHeadCellProps: { style: { color: "black" } }, //custom props
                 enableHiding: true, //disable a feature for this column
+                size:50
             },
             {
                 accessorKey: "Result", //simple recommended way to define a column
@@ -34,6 +36,7 @@ const ResultTable = () => {
                 muiTableHeadCellProps: { style: { color: "green" } }, //custom props
                 enableHiding: true, //disable a feature for this column
                 Cell: () => <i>{"Pass"}</i>, 
+                size:50
             },
         ],
         []
@@ -45,6 +48,7 @@ const ResultTable = () => {
         enableColumnFilters: false,
         enablePagination: false,
         enableSorting: false,
+        initialState: { density: 'compact' },
         renderTopToolbarCustomActions: ({ table }) => (
             <Box
                 sx={{
@@ -58,7 +62,7 @@ const ResultTable = () => {
                     //export all rows, including from the next page, (still respects filtering and sorting)
                     onClick={() => handleExportRows(table.getPrePaginationRowModel().rows)}
                     startIcon={<FileDownloadIcon />}>
-                    Export All Rows
+                    Download
                 </Button>
                 {/* <Button
                     disabled={table.getRowModel().rows.length === 0}
