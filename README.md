@@ -1,6 +1,6 @@
 # School Exam Result Checker
 
-![Project Logo](link_to_logo_image)
+
 
 ## Overview
 This web application provides a convenient way for students to check their final exam results online. It aims to simplify the process of accessing and viewing exam results, making it easier for students, parents, and educators.
@@ -26,8 +26,12 @@ Contributions are welcome! Please follow these guidelines:
 - Make changes and ensure code quality (linting, testing).
 - Submit a pull request with a clear description of your changes.
 
-## License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Public site 
+![Screenshot (19)](https://github.com/MuhammedFayistgl/Exam-result/assets/77223454/395fc88d-1a5f-4d7d-9e88-090de53ecc1f)
+## Admin only 
+![Screenshot (18)](https://github.com/MuhammedFayistgl/Exam-result/assets/77223454/b17e1f70-d1fc-4c98-b58f-00079d1146f9)
+
 
 ## Contact
 For inquiries and support, contact us at [muhammedfayisthangal@gmail.com](muhammedfayisthangal@gmail.com).
