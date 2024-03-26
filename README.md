@@ -60,6 +60,6 @@ Contributions are welcome! Please follow these guidelines:
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Contact
-For inquiries and support, contact us at [email@example.com](mailto:email@example.com).
+For inquiries and support, contact us at [muhammedfayisthangal@gmail.com](muhammedfayisthangal@gmail.com).
 
 ---
