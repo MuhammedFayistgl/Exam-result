@@ -12,38 +12,8 @@ This web application provides a convenient way for students to check their final
 - Responsive Design: Accessible on both mobile and desktop devices for user convenience.
 - Secure Login: Secure login system for students to access personalized results securely.
 
-## Installation and Usage
-1. Clone the repository:
-  
-Bash
-
-
-   git clone https://github.com/your_username/school-exam-result-checker.git
-   
-2. Install dependencies:
-  
-Bash
-
-
-   npm install
-   
-3. Configure environment variables:
-   - Create a .env file based on the provided .env.example template.
-   - Update the variables with your configuration details.
-4. Start the development server:
-  
-Bash
-
-
-   npm start
-   
-5. Open the website in your browser:
-  
-copy
-
-
-   http://localhost:3000
-   
+## ScreenShot
+
 ## Technologies Used
 - Frontend: HTML, CSS, JavaScript (React.js)
 - Backend: Node.js, Express.js
